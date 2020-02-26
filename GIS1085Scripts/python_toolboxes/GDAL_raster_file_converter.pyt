@@ -124,7 +124,6 @@ class GDAL_raster_file_converter(object):
         src_folder = parameters[0].valueAsText
         input_format = parameters[1].valueAsText
 
-
         for filename in os.listdir(src_folder):
 
             if input_format in filename:
