@@ -28,8 +28,6 @@ environmental packages:
 2. python 3.6.9
 3. ArcGIS Pro 2.5
 
-I am just trying to test out my Git integration this will get erased.
-
 """
 
 import arcpy
