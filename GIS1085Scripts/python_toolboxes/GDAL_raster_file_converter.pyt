@@ -66,12 +66,13 @@ class GDAL_raster_file_converter(object):
         direction="Input")
 
         """for gathering the GDAL raster read driver list (not used at this time)"""
-        driver_list = []
-        for name in range(gdal.GetDriverCount()):
-            driver = gdal.GetDriver(name)
-            driver_list.append(driver.GetDescription())
+        # the code below creates a list of the driver names, but the driver names are not the same as the file extensions
+        #driver_list = []
+        #for name in range(gdal.GetDriverCount()):
+        #    driver = gdal.GetDriver(name)
+        #    driver_list.append(driver.GetDescription())
 
-        """ a pick list of all raster file extensions readable by GDAL could be used below"""
+        # a pick list of all raster file extensions readable by GDAL could be created and used below
         param1 = arcpy.Parameter(
         displayName="Enter the file name with extension, or just the extension (i.e. .tif) in order to batch convert that file type from input folder:",
         name="input_file_type",
@@ -123,15 +124,15 @@ class GDAL_raster_file_converter(object):
 
         src_folder = parameters[0].valueAsText
         input_format = parameters[1].valueAsText
+        outpath = parameters[2].valueAsText
+        output_format = parameters[3].valueAsText
 
         for filename in os.listdir(src_folder):
 
             if input_format in filename:
                 src_file = gdal.OpenEx("{0}\{1}".format(src_folder, filename), 0)
                 if src_file.RasterCount >= 1:
-                    output_format = parameters[3].valueAsText
                     driver = gdal.GetDriverByName(output_format)
-                    outpath = parameters[2].valueAsText
                     basenamesplit = filename.split(".")
                     basename = basenamesplit[0]
                     output_file = "{0}\{1}.tif".format(outpath, basename)
